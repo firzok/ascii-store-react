@@ -18,6 +18,7 @@ export default function Container(props) {
   const [fetchingMore, setFetchingMore] = useState(false);
   const [isGettingData, setIsGettingData] = useState(false);
 
+  const [data, setData] = useState({});
 
 
   // componentDidMount() {
@@ -58,11 +59,12 @@ export default function Container(props) {
         headers: { "Content-Type": "application/json" },
       };
       axios.get(`${PRODUCTS_URL}?_page=${1}&_limit=${10}&_sort=${sort}`, { "headers": header }).then(res => {
-        var { data, total } = res.data;
+        var { data, count } = res.data;
 
         setIsGettingData(false);
 
-        this.setState({ data, totalRecords: total, overall_total: total });
+        setData(data);
+        setTotalRecords(count);
       })
         .catch(error => {
           setIsGettingData(false);
@@ -102,7 +104,7 @@ export default function Container(props) {
     <div className="container-fluid">
       <Header onSelectSort={sortProducts} />
       <div className="d-flex flex-column list-container">
-        <List onFetchMore={fetchMoreProducts} />
+        <List products onFetchMore={fetchMoreProducts} />
       </div>
     </div>
   );

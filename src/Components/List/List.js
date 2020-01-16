@@ -8,7 +8,7 @@ import { ListItem, AdvertListItem } from "./ListItem/ListItem";
 /**
  * This is the List view of the application
  */
-class List extends React.PureComponent {
+export default List(props){
   static propTypes = {
     onFetchMore: PropTypes.func.isRequired
   };
@@ -21,7 +21,6 @@ class List extends React.PureComponent {
     };
   }
 
-  render() {
     // let {
     //   products: { data, fetchingMore, hasEndBeenReached, advertTargetIndex }
     // } = this.props;
@@ -68,7 +67,7 @@ class List extends React.PureComponent {
         )} */}
       </React.Fragment>
     );
-  }
+  
 }
 
 export default List;
