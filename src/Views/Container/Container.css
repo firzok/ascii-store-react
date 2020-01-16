@@ -1,0 +1,10 @@
+.list-container {
+  margin: 0px 36px;
+  padding-top: 95px;
+}
+
+@media (max-width: 360px) {
+  .list-container {
+    margin: 0px 17px;
+  }
+}

@@ -1,0 +1,13 @@
+node_modules
+/build
+bundle.js
+npm-debug.log
+.DS_Store
+.vscode
+./build/*
+
+# IntelliJ
+*.iml
+/.idea
+package-lock.json
+yarn.lock

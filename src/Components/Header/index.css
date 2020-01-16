@@ -1,0 +1,96 @@
+.main-header-container {
+  position: fixed;
+  width: 100%;
+  margin-bottom: 70px;
+}
+
+.main-header {
+  height: 120px;
+  background: rgb(104, 104, 104);
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.14);
+  padding: 10px;
+  font-family: "Raleway";
+  font-size: 45px;
+  width: 100%;
+  color: rgb(255, 255, 255);
+}
+
+.main-header > div {
+  margin-left: 40px;
+}
+
+.main-header__title--name {
+  font-weight: 700;
+}
+
+.main-header__title--slug {
+  font-weight: 300;
+}
+
+.main-header > i {
+  cursor: pointer;
+}
+
+.main-header__cart {
+  margin-right: 40px;
+  cursor: pointer;
+}
+
+.main-header__cart-count {
+  position: absolute;
+  margin-left: 0px;
+  background: rgb(252,113,51);
+  color: #fff;
+  margin-left: 40px;
+  font-weight: 700;
+  width: 30px;
+  font-size: 14px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+/**
+* Sort section
+*/
+.sort-header {
+  height: 60px;
+  background: rgb(255, 255, 255);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.14);
+  font-family: "Raleway";
+  font-size: 15px;
+  padding: 0 10px;
+  width: 100%;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.sort-header__title {
+  font-weight: 400;
+  margin-left: 40px;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.sort-header__filter-item {
+  padding: 0 10px;
+  margin-left: 15px;
+  cursor: pointer;
+  font-weight: 700;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.sort-header__filter-item--active {
+  border: 1px solid rgb(211, 95, 41);
+  background: rgb(252,113,51);
+  color: #fff;
+}
+
+@media (max-width: 360px) {
+  .main-header > div {
+    margin-left: 20px;
+  }
+
+  .sort-header__title {
+    margin-left: 20px;
+  }
+}
