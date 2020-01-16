@@ -1,0 +1,32 @@
+.list-container__title {
+  font-size: 12px;
+  margin: 20px 0px;
+  margin-left: 1.5%;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.list-container__footer-text {
+  margin: 20px 0px;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.list-container__animated-loading {
+  animation: colorate 1.5s linear infinite;
+}
+
+@keyframes colorate {
+  0% {
+    color: #f44336;
+  }
+  100% {
+    color: rgba(0, 0, 0, 0.54);
+  }
+}
+
+@media (max-width: 700px) {
+  .list-container__title {
+    margin-left: 0%;
+  }
+}

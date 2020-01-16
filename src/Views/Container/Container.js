@@ -50,7 +50,26 @@ export default function Container(props) {
     setPage(1);
     setSort(sort);
 
-    props.fetchProducts({ _page: 1, _sort: sort, _limit: 10 });
+    if (!hasEndBeenReached && !fetchingMore) {
+
+      setIsGettingData(true);
+      let header = {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      };
+      axios.get(`${PRODUCTS_URL}?_page=${1}&_limit=${10}&_sort=${sort}`, { "headers": header }).then(res => {
+        var { data, total } = res.data;
+
+        setIsGettingData(false);
+
+        this.setState({ data, totalRecords: total, overall_total: total });
+      })
+        .catch(error => {
+          setIsGettingData(false);
+        });
+
+    }
+
   };
 
   /**
@@ -65,7 +84,7 @@ export default function Container(props) {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       };
-      axios.get(`${PRODUCTS_URL}?_page=${0}&_size=${0}&_sort=${sort}&_limit=${10}`, { "headers": header }).then(res => {
+      axios.get(`${PRODUCTS_URL}?_page=${0}&_limit=${10}&_sort=${sort}`, { "headers": header }).then(res => {
         var { data, total } = res.data;
 
         setIsGettingData(false);
