@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from 'axios'
 import "./Container.css";
 import Header from "../../Components/Header/Header";
-import List from "../../Components/List/List";
+import ProductList from "../../Components/ProductList/ProductList";
 import { PRODUCTS_URL } from "../../config/rest_endpoints";
 
 /**
@@ -19,7 +19,12 @@ export default function Container(props) {
   const [isGettingData, setIsGettingData] = useState(false);
 
   const [data, setData] = useState({});
+  const [totalRecords, setTotalRecords] = useState(0);
 
+
+  useEffect(() => {
+
+  }, totalRecords);
 
   // componentDidMount() {
   //   let { _sort } = this.state;
@@ -59,12 +64,12 @@ export default function Container(props) {
         headers: { "Content-Type": "application/json" },
       };
       axios.get(`${PRODUCTS_URL}?_page=${1}&_limit=${10}&_sort=${sort}`, { "headers": header }).then(res => {
-        var { data, count } = res.data;
+        var { data, total } = res.data;
 
         setIsGettingData(false);
 
         setData(data);
-        setTotalRecords(count);
+        setTotalRecords(total);
       })
         .catch(error => {
           setIsGettingData(false);
@@ -91,7 +96,8 @@ export default function Container(props) {
 
         setIsGettingData(false);
 
-        this.setState({ data, totalRecords: total, overall_total: total });
+        setData(data);
+        setTotalRecords(total);
       })
         .catch(error => {
           setIsGettingData(false);
@@ -104,7 +110,7 @@ export default function Container(props) {
     <div className="container-fluid">
       <Header onSelectSort={sortProducts} />
       <div className="d-flex flex-column list-container">
-        <List products onFetchMore={fetchMoreProducts} />
+        <ProductList products onFetchMore={fetchMoreProducts} />
       </div>
     </div>
   );

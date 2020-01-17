@@ -90,3 +90,24 @@
     width: 100%;
   }
 }
+
+
+
+
+
+
+.product-footer {
+  padding: 15px !important;
+  background-color: whitesmoke;
+}
+
+
+
+.product-cart-fab {
+  background-color: rgb(246,113,51) ! important;
+  color: white !important;
+}
+.product-cart-fab:hover {
+  background-color: rgb(218, 99, 45) ! important;
+}
+

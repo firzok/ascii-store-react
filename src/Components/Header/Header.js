@@ -1,6 +1,6 @@
 import React from "react";
 import "./index.css";
-
+import ShoppingCartRoundedIcon from '@material-ui/icons/ShoppingCartRounded';
 import SortOptions from "./SortOptions";
 
 /**
@@ -22,7 +22,7 @@ export default function Header(props) {
           <div className="d-flex justify-content-center align-items-center main-header__cart-count">
             {1}
           </div>
-          <i class="fas fa-shopping-cart"></i>
+          <ShoppingCartRoundedIcon style={{ fontSize: "4rem" }} />
         </div>
       </div>
       <SortOptions onSetActiveFilter={sortOption => props.onSelectSort(sortOption)} />
