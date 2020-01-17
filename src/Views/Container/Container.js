@@ -22,9 +22,9 @@ export default function Container(props) {
   const [totalRecords, setTotalRecords] = useState(0);
 
 
-  useEffect(() => {
+  // useEffect(() => {
 
-  }, totalRecords);
+  // }, totalRecords);
 
   // componentDidMount() {
   //   let { _sort } = this.state;
@@ -110,7 +110,7 @@ export default function Container(props) {
     <div className="container-fluid">
       <Header onSelectSort={sortProducts} />
       <div className="d-flex flex-column list-container">
-        <ProductList products onFetchMore={fetchMoreProducts} />
+        <ProductList products={data} onFetchMore={fetchMoreProducts} />
       </div>
     </div>
   );
