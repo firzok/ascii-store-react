@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import "./index.css";
-import ShoppingCartRoundedIcon from '@material-ui/icons/ShoppingCartRounded';
+import ShoppingCartTwoToneIcon from '@material-ui/icons/ShoppingCartTwoTone';
 import SortOptions from "./SortOptions";
 import { CartContext } from "../../App";
 
@@ -33,7 +33,7 @@ export default function Header(props) {
             :
             ""}
 
-          <ShoppingCartRoundedIcon style={{ fontSize: "3rem" }} />
+          <ShoppingCartTwoToneIcon style={{ fontSize: "3rem" }} />
         </div>
       </div>
       <SortOptions onSetActiveFilter={sortOption => props.onSelectSort(sortOption)} />

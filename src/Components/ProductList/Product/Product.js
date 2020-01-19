@@ -6,8 +6,9 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
+import RemoveShoppingCartTwoToneIcon from '@material-ui/icons/RemoveShoppingCartTwoTone';
 import { CartContext } from "../../../App";
+import getDate from "../../../utils/date"
 
 
 // import { api } from "../../../Services/Endpoints";
@@ -116,13 +117,13 @@ export function Product(props) {
           <Typography variant="h6" component="h2">
             {"$" + props.price / 100}
           </Typography>
-          {/* <Typography>
-            {props.date}
-          </Typography> */}
+          <Typography>
+            {getDate(props.date)}
+          </Typography>
         </div>
 
         <Fab className="product-cart-fab" aria-label="add" style={{ position: 'relative' }} onClick={() => props.onAddToCart()}>
-          {productInCart ? <RemoveShoppingCartIcon /> : <AddShoppingCartIcon />}
+          {productInCart ? <RemoveShoppingCartTwoToneIcon /> : <AddShoppingCartIcon />}
         </Fab>
 
 
