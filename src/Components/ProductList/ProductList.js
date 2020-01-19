@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./ProductList.css";
 
 import { Product, AdvertListItem } from "./Product/Product";
+import { CartContext } from "../../App";
 
 /**
  * This is the List view of the application
@@ -12,9 +13,7 @@ export default function ProductList(props) {
 
   let { products, onFetchMore } = props;
 
-  // useEffect(() => {
-  //   // console.log("props updated")
-  // }, [props.products])
+  const [cart, setCart] = useContext(CartContext);
 
   useEffect(() => {
     if (loadMore) {
@@ -38,6 +37,28 @@ export default function ProductList(props) {
     // }
   }, []);
 
+  function addToCart(product) {
+    debugger
+
+    let currentCart = JSON.parse(cart) || [];
+
+    let newProduct = product.id;
+
+    let newCart = [];
+    const index = currentCart.indexOf(newProduct);
+    if (index < 0 || currentCart.length == 0) {
+      newCart = [...currentCart, newProduct];
+    }
+    else {
+      if (index > -1) {
+        currentCart.splice(index, 1);
+      }
+      newCart = currentCart;
+    }
+
+    setCart(JSON.stringify(newCart));
+  }
+
 
 
   return (
@@ -57,6 +78,7 @@ export default function ProductList(props) {
               price={product.price}
               face={product.face}
               date={product.date}
+              onAddToCart={() => addToCart(product)}
             />
           )
         }

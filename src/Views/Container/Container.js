@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import axios from 'axios'
 import "./Container.css";
 import Header from "../../Components/Header/Header";
@@ -18,44 +18,12 @@ export default function Container(props) {
   const [sort, setSort] = useState("none");
   const [endReached, setEndReached] = useState(false);
   const [isGettingData, setIsGettingData] = useState(false);
-
   const [data, setData] = useState([]);
   const [futureData, setFutureData] = useState([]);
-
-
-  // useEffect(() => {
-
-  // }, totalRecords);
-
-  // componentDidMount() {
-  //   let { _sort } = this.state;
-  // }
-
-  // componentDidUpdate(prevProps) {
-  //   let {
-  //     products: { data: newData }
-  //   } = this.props,
-  //     {
-  //       products: { data: prevData }
-  //     } = prevProps;
-
-  //   //This updates the page number if a fetch more query is successful i.e new data length > old data length
-  //   if (newData.length > prevData.length && newData !== prevData.length) {
-  //     this.setState({
-  //       _page: this.state._page + 1
-  //     });
-  //   }
-  // }
-
-
-  // useEffect(() => {
-
-  // }, sort);
-
   /**
    * This function sorts the data
    * It also resets the page number and sort paramater after a filter has been selected
-   * @param {number} sort
+   * @param {number} newSort
    */
   function sortProducts(newSort) {
     setPage(1);
@@ -89,7 +57,6 @@ export default function Container(props) {
    * This function fetches future products so that when a user scrolls at the end of page, next data is already loaded.
    */
   function getFutureData() {
-    debugger;
     if (!endReached && !isGettingData) {
       let header = {
         method: "GET",
@@ -97,7 +64,6 @@ export default function Container(props) {
       };
       axios.get(`${PRODUCTS_URL}?_page=${page + 2}&_limit=${20}&_sort=${sort}`, { "headers": header }).then(res => {
         if (res.status == 200) {
-
           var total = res.data.length;
           var newData = res.data;
 
@@ -129,6 +95,7 @@ export default function Container(props) {
 
             var total = res.data.length;
             var newData = res.data;
+            debugger
 
             if (total == 0) {
               setEndReached(true);
@@ -173,6 +140,7 @@ export default function Container(props) {
           color={"rgb(246,113,51)"}
           loading={isGettingData}
         />
+        {endReached ? <span>~ end of catalogue ~</span> : ""}
       </div>
     </div>
   );

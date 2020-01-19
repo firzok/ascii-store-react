@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Product.css";
-import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
+import { CartContext } from "../../../App";
 
 
 // import { api } from "../../../Services/Endpoints";
@@ -89,27 +90,42 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 /**
  * This is the default Product component
  */
-
 export function Product(props) {
+
+  const [cart, setCart] = useContext(CartContext);
+
+  const currentCart = JSON.parse(cart) || [];
+
+  const productInCart = currentCart.indexOf(props.id) >= 0 ? true : false;
+
+  console.log(currentCart);
+
   return (
     <Card className="product-card" variant="outlined">
       <CardContent className="product-card-face">
         <Typography style={{ fontSize: props.size }}>
           {props.face}
         </Typography>
-        {/* <Typography>
-          {props.date}
-        </Typography> */}
+
 
       </CardContent>
 
       <CardActions className="d-flex justify-content-between align-items-center product-footer">
-        <Typography variant="h6" component="h2">
-          {"$" + props.price / 100}
-        </Typography>
-        <Fab className="product-cart-fab" aria-label="add" style={{ position: 'relative' }}>
-          <AddShoppingCartIcon />
+
+        <div>
+          <Typography variant="h6" component="h2">
+            {"$" + props.price / 100}
+          </Typography>
+          {/* <Typography>
+            {props.date}
+          </Typography> */}
+        </div>
+
+        <Fab className="product-cart-fab" aria-label="add" style={{ position: 'relative' }} onClick={() => props.onAddToCart()}>
+          {productInCart ? <RemoveShoppingCartIcon /> : <AddShoppingCartIcon />}
         </Fab>
+
+
       </CardActions>
     </Card>
   )
