@@ -4,6 +4,8 @@ import "./Container.css";
 import Header from "../../Components/Header/Header";
 import ProductList from "../../Components/ProductList/ProductList";
 import { PRODUCTS_URL } from "../../config/rest_endpoints";
+import { BounceLoader } from "react-spinners";
+
 
 /**
  * @Component - Container is the main product listing page
@@ -14,12 +16,11 @@ export default function Container(props) {
 
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState("none");
-  const [hasEndBeenReached, setHasEndBeenReached] = useState(false);
-  const [fetchingMore, setFetchingMore] = useState(false);
+  const [endReached, setEndReached] = useState(false);
   const [isGettingData, setIsGettingData] = useState(false);
 
-  const [data, setData] = useState({});
-  const [totalRecords, setTotalRecords] = useState(0);
+  const [data, setData] = useState([]);
+  const [futureData, setFutureData] = useState([]);
 
 
   // useEffect(() => {
@@ -46,71 +47,132 @@ export default function Container(props) {
   //   }
   // }
 
+
+  // useEffect(() => {
+
+  // }, sort);
+
   /**
    * This function sorts the data
    * It also resets the page number and sort paramater after a filter has been selected
    * @param {number} sort
    */
-  function sortProducts(sort) {
-
+  function sortProducts(newSort) {
     setPage(1);
-    setSort(sort);
+    setSort(newSort);
+    setData([]);
+    setFutureData([]);
+    window.scrollTo(0, 0);
 
-    if (!hasEndBeenReached && !fetchingMore) {
+    if (!endReached && !isGettingData) {
 
       setIsGettingData(true);
       let header = {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       };
-      axios.get(`${PRODUCTS_URL}?_page=${1}&_limit=${10}&_sort=${sort}`, { "headers": header }).then(res => {
-        var { data, total } = res.data;
+      axios.get(`${PRODUCTS_URL}?_page=${1}&_limit=${20}&_sort=${newSort}`, { "headers": header }).then(res => {
 
+        if (res.status == 200) {
+          setData(res.data);
+        }
         setIsGettingData(false);
-
-        setData(data);
-        setTotalRecords(total);
       })
         .catch(error => {
           setIsGettingData(false);
         });
-
     }
 
   };
 
   /**
-   * This function fetches more products when a user scrolls at the end of page.
+   * This function fetches future products so that when a user scrolls at the end of page, next data is already loaded.
    */
-  function fetchMoreProducts() {
-
-    if (!hasEndBeenReached && !fetchingMore) {
-
-      setIsGettingData(true);
+  function getFutureData() {
+    debugger;
+    if (!endReached && !isGettingData) {
       let header = {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       };
-      axios.get(`${PRODUCTS_URL}?_page=${0}&_limit=${10}&_sort=${sort}`, { "headers": header }).then(res => {
-        var { data, total } = res.data;
+      axios.get(`${PRODUCTS_URL}?_page=${page + 2}&_limit=${20}&_sort=${sort}`, { "headers": header }).then(res => {
+        if (res.status == 200) {
 
-        setIsGettingData(false);
+          var total = res.data.length;
+          var newData = res.data;
 
-        setData(data);
-        setTotalRecords(total);
+          if (total == 0) {
+            setEndReached(true);
+          }
+          setFutureData(newData);
+        }
+
       })
-        .catch(error => {
+    }
+  }
+
+  /**
+   * This function fetches more products when a user scrolls at the end of page.
+   */
+  function fetchMoreProducts() {
+    debugger
+    if (!endReached && !isGettingData) {
+
+      if (futureData.length == 0) {
+        setIsGettingData(true);
+        let header = {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        };
+        axios.get(`${PRODUCTS_URL}?_page=${page + 1}&_limit=${20}&_sort=${sort}`, { "headers": header }).then(res => {
+          if (res.status == 200) {
+
+            var total = res.data.length;
+            var newData = res.data;
+
+            if (total == 0) {
+              setEndReached(true);
+            }
+            setData([...data, ...newData]);
+          }
           setIsGettingData(false);
-        });
+
+        })
+          .catch(error => {
+            setIsGettingData(false);
+          });
+
+        setPage(page + 1);
+        getFutureData();
+      }
+      else {
+        setData([...data, ...futureData]);
+
+        setFutureData([]);
+        getFutureData();
+      }
+
 
     }
   };
 
+  const override = `
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+`;
   return (
     <div className="container-fluid">
       <Header onSelectSort={sortProducts} />
       <div className="d-flex flex-column list-container">
         <ProductList products={data} onFetchMore={fetchMoreProducts} />
+
+        <BounceLoader
+          css={override}
+          size={50}
+          color={"rgb(246,113,51)"}
+          loading={isGettingData}
+        />
       </div>
     </div>
   );

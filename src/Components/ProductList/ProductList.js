@@ -8,68 +8,58 @@ import { Product, AdvertListItem } from "./Product/Product";
  */
 export default function ProductList(props) {
 
-  useEffect(() => {
-    console.log("props updated")
-  }, [props.products])
+  const [loadMore, setLoadMore] = useState(false);
+
+  let { products, onFetchMore } = props;
+
+  // useEffect(() => {
+  //   // console.log("props updated")
+  // }, [props.products])
 
   useEffect(() => {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-      // props.onFetchMore();
+    if (loadMore) {
+      console.log("Window scrolled to the end.")
 
-      console.log("Window scrolled")
+      onFetchMore();
     }
-  }, [])
+
+    setLoadMore(false);
+  }, [loadMore])
 
 
-  // let {
-  //   products: { data, fetchingMore, hasEndBeenReached, advertTargetIndex }
-  // } = this.props;
+  useEffect(() => {
+    const list = document.getElementById('list')
 
-  let product = {
-    id: 1234,
-    size: 55,
-    price: 13,
-    face: "( ⚆ _ ⚆ )",
-    date: "Sat Jan 04 2020 10:24:02 GMT+0500 (Pakistan Standard Time)"
-  }
+    window.addEventListener('scroll', () => {
+      if (window.scrollY + window.innerHeight === list.clientHeight + list.offsetTop) {
+        setLoadMore(true);
+      }
+    });
+    // }
+  }, []);
+
+
 
   return (
     <React.Fragment>
       {/* <span className="list-container__title">
-          Viewing{" "}
-          {data.length >= 21
-            ? data.length - advertTargetIndex / 20 + 1
-            : data.length}{" "}
-          faces
+        Viewing{" "}
+        {products.length}{" "}
+        faces
         </span> */}
-      <div className="d-flex flex-wrap">
-        {/* {data.map((product, i) =>
-            product.isAdvert ? (
-              <AdvertListItem
-                key={i}
-                title={product.title}
-                description={product.description}
-                sponsorsText={product.sponsorsText}
-                generatedImageRef={product.generatedImageRef}
-              />
-            ) : (
-                <ListItem
-                  key={i}
-                  id={product.id}
-                  size={product.size}
-                  price={product.price}
-                  face={product.face}
-                  date={product.date}
-                />
-              )
-          )} */}
-        <Product
-          id={product.id}
-          size={product.size}
-          price={product.price}
-          face={product.face}
-          date={product.date}
-        />
+      <div className="d-flex flex-wrap justify-content-center" id="list">
+        {
+          products.map((product, i) =>
+            <Product
+              key={i}
+              id={product.id}
+              size={product.size}
+              price={product.price}
+              face={product.face}
+              date={product.date}
+            />
+          )
+        }
       </div>
       {/* {fetchingMore && (
           <span className="list-container__footer-text list-container__animated-loading">

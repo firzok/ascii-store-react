@@ -95,13 +95,25 @@
 
 
 
+.product-card {
+  min-width: 420px !important;
+  min-height: 200px !important;
+  margin: 25px !important;
+  position: relative;
+
+}
+
+.product-card-face {
+  text-align: center;
+}
 
 .product-footer {
   padding: 15px !important;
   background-color: whitesmoke;
+  position: absolute;
+  bottom: 0;
+  width: -webkit-fill-available;
 }
-
-
 
 .product-cart-fab {
   background-color: rgb(246,113,51) ! important;
