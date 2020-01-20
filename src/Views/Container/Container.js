@@ -20,12 +20,34 @@ export default function Container(props) {
   const [isGettingData, setIsGettingData] = useState(false);
   const [data, setData] = useState([]);
   const [futureData, setFutureData] = useState([]);
+
+  var adID = Math.floor(Math.random() * 1000);
+
+  function getRandomAdID() {
+
+    var newAdID = Math.floor(Math.random() * 1000);
+
+    while (newAdID === adID) {
+      newAdID = Math.floor(Math.random() * 1000);
+    }
+
+    return newAdID
+
+    // < p > Here you're sure to find a bargain on some of the finest ascii available to purchase. Be sure to peruse our selection of ascii faces in an exciting range of sizes and prices.</p>
+
+    //   < p > But first, a word from our sponsors:</p > <script>document.write('<img class="ad" src="/ads/?r=' + Math.floor(Math.random()*1000) + '" />');</script>
+    //   </header >
+
+  }
+
+
   /**
    * This function sorts the data
    * It also resets the page number and sort paramater after a filter has been selected
    * @param {number} newSort
    */
   function sortProducts(newSort) {
+
     setPage(1);
     setSort(newSort);
     setData([]);
@@ -39,10 +61,16 @@ export default function Container(props) {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       };
-      axios.get(`${PRODUCTS_URL}?_page=${1}&_limit=${10}&_sort=${newSort}`, { "headers": header }).then(res => {
+      axios.get(`${PRODUCTS_URL}?_page=${1}&_limit=${20}&_sort=${newSort}`, { "headers": header }).then(res => {
+
+        let newAd = {
+          isAd: true,
+          adID: getRandomAdID()
+        }
+        let newData = [...res.data, newAd]
 
         if (res.status == 200) {
-          setData(res.data);
+          setData(newData);
         }
         setIsGettingData(false);
       })
@@ -62,10 +90,16 @@ export default function Container(props) {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       };
-      axios.get(`${PRODUCTS_URL}?_page=${page + 2}&_limit=${10}&_sort=${sort}`, { "headers": header }).then(res => {
+      axios.get(`${PRODUCTS_URL}?_page=${page + 2}&_limit=${20}&_sort=${sort}`, { "headers": header }).then(res => {
         if (res.status == 200) {
           var total = res.data.length;
-          var newData = res.data;
+
+          let newAd = {
+            isAd: true,
+            adID: getRandomAdID()
+          }
+
+          let newData = [...res.data, newAd]
 
           if (total == 0) {
             setEndReached(true);
@@ -80,8 +114,7 @@ export default function Container(props) {
   /**
    * This function fetches more products when a user scrolls at the end of page.
    */
-  function fetchMoreProducts() {
-    debugger
+  function getProducts() {
     if (!endReached && !isGettingData) {
 
       if (futureData.length == 0) {
@@ -90,12 +123,16 @@ export default function Container(props) {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         };
-        axios.get(`${PRODUCTS_URL}?_page=${page + 1}&_limit=${10}&_sort=${sort}`, { "headers": header }).then(res => {
+        axios.get(`${PRODUCTS_URL}?_page=${page + 1}&_limit=${20}&_sort=${sort}`, { "headers": header }).then(res => {
           if (res.status == 200) {
 
             var total = res.data.length;
-            var newData = res.data;
-            debugger
+            let newAd = {
+              isAd: true,
+              adID: getRandomAdID()
+            }
+
+            let newData = [...res.data, newAd]
 
             if (total == 0) {
               setEndReached(true);
@@ -132,7 +169,7 @@ export default function Container(props) {
     <div className="container-fluid">
       <Header onSelectSort={sortProducts} />
       <div className="d-flex flex-column list-container">
-        <ProductList products={data} onFetchMore={fetchMoreProducts} />
+        <ProductList products={data} onFetchMore={getProducts} />
 
         <BounceLoader
           css={override}

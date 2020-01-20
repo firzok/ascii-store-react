@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./ProductList.css";
 
-import { Product, AdvertListItem } from "./Product/Product";
+import { Product, Ad } from "./Product/Product";
 import { CartContext } from "../../App";
 
 /**
@@ -27,14 +27,10 @@ export default function ProductList(props) {
 
 
   useEffect(() => {
-
-
-    const list = document.getElementById('list')
+    // const list = document.getElementById('list')
 
     document.addEventListener('scroll', () => {
-      debugger
       if ((window.innerHeight + window.scrollY + 100) >= document.body.offsetHeight) {
-        debugger
         setLoadMore(true);
       }
     });
@@ -62,8 +58,6 @@ export default function ProductList(props) {
     setCart(JSON.stringify(newCart));
   }
 
-
-
   return (
     <React.Fragment>
       {/* <span className="list-container__title">
@@ -73,16 +67,25 @@ export default function ProductList(props) {
         </span> */}
       <div className="d-flex flex-wrap justify-content-center" id="list">
         {
-          products.map((product, i) =>
-            <Product
-              key={i}
-              id={product.id}
-              size={product.size}
-              price={product.price}
-              face={product.face}
-              date={product.date}
-              onAddToCart={() => addToCart(product)}
-            />
+          products.map((product, i) => {
+            {
+              return product.isAd ?
+                <Ad
+                  key={i}
+                  adID={product.adID}
+                />
+                :
+                <Product
+                  key={i}
+                  id={product.id}
+                  size={product.size}
+                  price={product.price}
+                  face={product.face}
+                  date={product.date}
+                  onAddToCart={() => addToCart(product)}
+                />
+            }
+          }
           )
         }
       </div>

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Product.css";
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -9,84 +9,43 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import RemoveShoppingCartTwoToneIcon from '@material-ui/icons/RemoveShoppingCartTwoTone';
 import { CartContext } from "../../../App";
 import getDate from "../../../utils/date"
+import { ADS_URL } from "../../../config/rest_endpoints";
+import { makeStyles } from '@material-ui/core/styles';
+import axios from 'axios'
+import CardMedia from '@material-ui/core/CardMedia';
 
 
-// import { api } from "../../../Services/Endpoints";
-// import { getDate } from "../../../utils";
-// import { NotificationBanner } from "../../NotificationBanner";
+export function Ad(props) {
+  const useStyles = makeStyles({
+    card: {
+      maxWidth: 345,
+    },
+    media: {
+      height: 140,
+    },
+  });
+  const classes = useStyles();
 
-/**
- * This function composes the NotificationBanner function
- * @param {enum : "addition" | "removal"} type
- */
-// function showNotificationBanner(type) {
-//   let title =
-//     type === "addition" ? "Faces added to cart" : "Faces removed from cart",
-//     banner = NotificationBanner({ title, type });
+  return (
+    <Card className="product-card" variant="outlined">
+      <CardContent className="product-card-face">
+        <Typography variant="body2" color="textSecondary" component="p">
+          Here you're sure to find a bargain on some of the finest ascii available to purchase.
+          Be sure to peruse our selection of ascii faces in an exciting range of sizes and prices.
+          But first, a word from our sponsors.
+        </Typography>
 
-//   banner.show();
-// }
+        <CardMedia
+          className="ad-image"
+          image={`${ADS_URL}?r=${props.adID}`}
+          title="Sponsored Content"
+        />
 
-/**
- * This is the AdvertListItem component
- * created as a stateful component because of the need to show information
- * for the download progress of the sponsor images
- */
-// class AdvertListItem extends React.PureComponent {
-//   state = {
-//     loading: true,
-//     error: null
-//   };
+      </CardContent>
 
-//   static propTypes = {
-//     title: PropTypes.string.isRequired,
-//     description: PropTypes.string.isRequired,
-//     sponsorsText: PropTypes.string.isRequired,
-//     generatedImageRef: PropTypes.number.isRequired
-//   };
-
-//   render() {
-//     return (
-//       <div className="d-flex flex-column list-item advert-list-item">
-//         <h1 className="list-item__advert-title">{this.props.title}</h1>
-//         <p className="list-item__advert-description">
-//           {this.props.description}
-//         </p>
-//         <p className="list-item__advert-description">
-//           {this.props.sponsorsText}
-//         </p>
-//         {this.state.loading && (
-//           <div
-//             className="d-flex align-items-center justify-content-center"
-//             style={{ height: 200 }}
-//           >
-//             <span className="list-item__animated-loading list-item__loading">
-//               Loading...
-//             </span>
-//           </div>
-//         )}
-//         {this.state.error && (
-//           <div
-//             className="d-flex align-items-center justify-content-center"
-//             style={{ height: 179 }}
-//           >
-//             <span className="list-item__loading">{this.state.error}</span>
-//           </div>
-//         )}
-//         <img
-//           alt="advert"
-//           onLoadStart={() => this.setState({ loading: true, error: null })}
-//           onLoad={() => this.setState({ loading: false, error: null })}
-//           onError={() =>
-//             this.setState({ loading: false, error: "FAILED TO LOAD" })
-//           }
-//           className="ad"
-//         // src={`${api.imageBaseURL}${this.props.generatedImageRef}`}
-//         />
-//       </div>
-//     );
-//   }
-// }
+    </Card>
+  )
+}
 
 /**
  * This is the default Product component

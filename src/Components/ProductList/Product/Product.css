@@ -96,11 +96,10 @@
 
 
 .product-card {
-  min-width: 450px !important;
-  min-height: 200px !important;
+  width: 450px !important;
+  height: 250px !important;
   margin: 25px !important;
   position: relative;
-
 }
 
 .product-card-face {
@@ -123,3 +122,9 @@
   background-color: rgb(218, 99, 45) ! important;
 }
 
+.ad-image {
+  height: 150px !important;
+  margin: 5px !important;
+  max-width: inherit;
+  max-height: 130px;
+}
