@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import "./Product.css";
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -10,21 +10,10 @@ import RemoveShoppingCartTwoToneIcon from '@material-ui/icons/RemoveShoppingCart
 import { CartContext } from "../../../App";
 import getDate from "../../../utils/date"
 import { ADS_URL } from "../../../config/rest_endpoints";
-import { makeStyles } from '@material-ui/core/styles';
-import axios from 'axios'
 import CardMedia from '@material-ui/core/CardMedia';
 
 
 export function Ad(props) {
-  const useStyles = makeStyles({
-    card: {
-      maxWidth: 345,
-    },
-    media: {
-      height: 140,
-    },
-  });
-  const classes = useStyles();
 
   return (
     <Card className="product-card" variant="outlined">
@@ -52,7 +41,7 @@ export function Ad(props) {
  */
 export function Product(props) {
 
-  const [cart, setCart] = useContext(CartContext);
+  const [cart, _] = useContext(CartContext);
 
   const currentCart = JSON.parse(cart) || [];
 

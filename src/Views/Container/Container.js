@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import axios from 'axios'
 import "./Container.css";
 import Header from "../../Components/Header/Header";
@@ -69,7 +69,7 @@ export default function Container(props) {
         }
         let newData = [...res.data, newAd]
 
-        if (res.status == 200) {
+        if (res.status === 200) {
           setData(newData);
         }
         setIsGettingData(false);
@@ -91,7 +91,7 @@ export default function Container(props) {
         headers: { "Content-Type": "application/json" },
       };
       axios.get(`${PRODUCTS_URL}?_page=${page + 2}&_limit=${20}&_sort=${sort}`, { "headers": header }).then(res => {
-        if (res.status == 200) {
+        if (res.status === 200) {
           var total = res.data.length;
 
           let newAd = {
@@ -101,7 +101,7 @@ export default function Container(props) {
 
           let newData = [...res.data, newAd]
 
-          if (total == 0) {
+          if (total === 0) {
             setEndReached(true);
           }
           setFutureData(newData);
@@ -117,14 +117,14 @@ export default function Container(props) {
   function getProducts() {
     if (!endReached && !isGettingData) {
 
-      if (futureData.length == 0) {
+      if (futureData.length === 0) {
         setIsGettingData(true);
         let header = {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         };
         axios.get(`${PRODUCTS_URL}?_page=${page + 1}&_limit=${20}&_sort=${sort}`, { "headers": header }).then(res => {
-          if (res.status == 200) {
+          if (res.status === 200) {
 
             var total = res.data.length;
             let newAd = {
@@ -134,7 +134,7 @@ export default function Container(props) {
 
             let newData = [...res.data, newAd]
 
-            if (total == 0) {
+            if (total === 0) {
               setEndReached(true);
             }
             setData([...data, ...newData]);
@@ -177,9 +177,9 @@ export default function Container(props) {
           color={"rgb(246,113,51)"}
           loading={isGettingData}
         />
-        {endReached ? <span>~ end of catalogue ~</span> : ""}
+        {endReached ? <span style={{ alignSelf: "center" }}>~ end of catalogue ~</span> : ""}
       </div>
-    </div>
+    </div >
   );
 
 }

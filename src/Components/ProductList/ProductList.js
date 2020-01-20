@@ -45,7 +45,7 @@ export default function ProductList(props) {
 
     let newCart = [];
     const index = currentCart.indexOf(newProduct);
-    if (index < 0 || currentCart.length == 0) {
+    if (index < 0 || currentCart.length === 0) {
       newCart = [...currentCart, newProduct];
     }
     else {
@@ -60,45 +60,28 @@ export default function ProductList(props) {
 
   return (
     <React.Fragment>
-      {/* <span className="list-container__title">
-        Viewing{" "}
-        {products.length}{" "}
-        faces
-        </span> */}
       <div className="d-flex flex-wrap justify-content-center" id="list">
         {
           products.map((product, i) => {
-            {
-              return product.isAd ?
-                <Ad
-                  key={i}
-                  adID={product.adID}
-                />
-                :
-                <Product
-                  key={i}
-                  id={product.id}
-                  size={product.size}
-                  price={product.price}
-                  face={product.face}
-                  date={product.date}
-                  onAddToCart={() => addToCart(product)}
-                />
-            }
+            return product.isAd ?
+              <Ad
+                key={i}
+                adID={product.adID}
+              />
+              :
+              <Product
+                key={i}
+                id={product.id}
+                size={product.size}
+                price={product.price}
+                face={product.face}
+                date={product.date}
+                onAddToCart={() => addToCart(product)}
+              />
           }
           )
         }
       </div>
-      {/* {fetchingMore && (
-          <span className="list-container__footer-text list-container__animated-loading">
-            Loading...
-          </span>
-        )}
-        {hasEndBeenReached && (
-          <span className="list-container__footer-text">
-            ~ end of catalogue ~
-          </span>
-        )} */}
     </React.Fragment>
   );
 
