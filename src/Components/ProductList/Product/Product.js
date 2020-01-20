@@ -12,8 +12,12 @@ import getDate from "../../../utils/date"
 import { ADS_URL } from "../../../config/rest_endpoints";
 import CardMedia from '@material-ui/core/CardMedia';
 
-
+/**
+ * This is the Ad component
+ */
 export function Ad(props) {
+
+  let imageURL = `${ADS_URL}?r=${props.adID}`;
 
   return (
     <Card className="product-card" variant="outlined">
@@ -26,7 +30,7 @@ export function Ad(props) {
 
         <CardMedia
           className="ad-image"
-          image={`${ADS_URL}?r=${props.adID}`}
+          image={imageURL}
           title="Sponsored Content"
         />
 
