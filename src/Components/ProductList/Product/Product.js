@@ -54,7 +54,6 @@ export function Product(props) {
           {props.face}
         </Typography>
 
-
       </CardContent>
 
       <CardActions className="d-flex justify-content-between align-items-center product-footer">
@@ -72,46 +71,8 @@ export function Product(props) {
           {productInCart ? <RemoveShoppingCartTwoToneIcon /> : <AddShoppingCartIcon />}
         </Fab>
 
-
       </CardActions>
     </Card>
   )
 
-
 };
-
-// const ListItem = props => (
-//   <div className="d-flex flex-column list-item">
-//     <div className="d-flex justify-content-between align-items-center">
-//       <span className="list-item__title">{props.id}</span>
-//       {/* {props.cart.indexOf(props.id) === -1 ? ( */}
-//         <i
-//           className="mdi mdi-plus-circle"
-//           onClick={() => {
-//             props.addToCart(props.id);
-//             // showNotificationBanner("addition");
-//           }}
-//         />
-//       {/* ) : (
-//           <i
-//             className="mdi mdi-minus-circle"
-//             onClick={() => {
-//               props.removeFromCart(props.id);
-//               // showNotificationBanner("removal");
-//             }}
-//           />
-//         )} */}
-//     </div>
-//     <span className="list-item__size">Available size ({props.size}px)</span>
-//     <div
-//       className="align-self-center list-item__faces"
-//       style={{ fontSize: props.size }}
-//     >
-//       {props.face}
-//     </div>
-//     <span className="list-item__price">${(props.price / 100).toFixed(2)}</span>
-//     {/* <span className="list-item__date">{getDate(props.date)}</span> */}
-//   </div>
-// );
-
-// export { ListItem, AdvertListItem };

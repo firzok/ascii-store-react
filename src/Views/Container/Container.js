@@ -8,9 +8,7 @@ import { BounceLoader } from "react-spinners";
 
 
 /**
- * @Component - Container is the main product listing page
- * This Component houses 2 states, i.e _page and _sort which keeps count of the page and sort respectively
- * These states were lifted here since they are ties to both the Header and the List components
+ * This is the main component that handles most of the functionality.
  */
 export default function Container(props) {
 
@@ -19,7 +17,7 @@ export default function Container(props) {
   const [endReached, setEndReached] = useState(false);
   const [isGettingData, setIsGettingData] = useState(false);
   const [data, setData] = useState([]);
-  const [futureData, setFutureData] = useState([]);
+  const [futureData, setFutureData] = useState([]);       //Data to be loaded preemptively.
 
   var adID = Math.floor(Math.random() * 1000);
 
@@ -32,24 +30,18 @@ export default function Container(props) {
     }
 
     return newAdID
-
-    // < p > Here you're sure to find a bargain on some of the finest ascii available to purchase. Be sure to peruse our selection of ascii faces in an exciting range of sizes and prices.</p>
-
-    //   < p > But first, a word from our sponsors:</p > <script>document.write('<img class="ad" src="/ads/?r=' + Math.floor(Math.random()*1000) + '" />');</script>
-    //   </header >
-
   }
-
 
   /**
    * This function sorts the data
-   * It also resets the page number and sort paramater after a filter has been selected
-   * @param {number} newSort
+   * It also resets the page number and sort paramater after a sort option has been selected.
    */
   function sortProducts(newSort) {
 
     setPage(1);
+
     setSort(newSort);
+
     setData([]);
     setFutureData([]);
     window.scrollTo(0, 0);
@@ -82,7 +74,7 @@ export default function Container(props) {
   };
 
   /**
-   * This function fetches future products so that when a user scrolls at the end of page, next data is already loaded.
+   * This function fetches future products preemptively so that when a user scrolls at the end of page, next data is already loaded.
    */
   function getFutureData() {
     if (!endReached && !isGettingData) {

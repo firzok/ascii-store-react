@@ -1,18 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
-import "./ProductList.css";
-
 import { Product, Ad } from "./Product/Product";
 import { CartContext } from "../../App";
 
 /**
- * This is the List view of the application
+ * This is the Product List view of the application
  */
 export default function ProductList(props) {
 
   const [loadMore, setLoadMore] = useState(false);
-
   let { products, onFetchMore } = props;
-
   const [cart, setCart] = useContext(CartContext);
 
   useEffect(() => {
@@ -27,8 +23,6 @@ export default function ProductList(props) {
 
 
   useEffect(() => {
-    // const list = document.getElementById('list')
-
     document.addEventListener('scroll', () => {
       if ((window.innerHeight + window.scrollY + 100) >= document.body.offsetHeight) {
         setLoadMore(true);
@@ -40,11 +34,10 @@ export default function ProductList(props) {
   function addToCart(product) {
 
     let currentCart = JSON.parse(cart) || [];
-
     let newProduct = product.id;
-
     let newCart = [];
     const index = currentCart.indexOf(newProduct);
+
     if (index < 0 || currentCart.length === 0) {
       newCart = [...currentCart, newProduct];
     }

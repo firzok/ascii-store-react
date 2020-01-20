@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import "./index.css";
+import "./header.css";
 import ShoppingCartTwoToneIcon from '@material-ui/icons/ShoppingCartTwoTone';
 import SortOptions from "./SortOptions";
 import { CartContext } from "../../App";
 
 /**
- * This is the header of the application with the cart count 
+ * This is the header of the application with the cart count and sort options.
  */
 export default function Header(props) {
 

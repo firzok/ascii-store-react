@@ -1,6 +1,8 @@
 import { SHORT_MONTH, FULL_DAY } from "../config/static_lists";
 
-
+/**
+ * Returns a date in a format that can be used in the product.
+ */
 export default function getDate(dateStr) {
 
     let difference = new Date().getTime() - new Date(dateStr).getTime();

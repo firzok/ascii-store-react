@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./index.css";
+import "./header.css";
 
 /**
  * This handles the sorting of the products
