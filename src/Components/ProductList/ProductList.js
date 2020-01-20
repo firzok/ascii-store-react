@@ -27,18 +27,21 @@ export default function ProductList(props) {
 
 
   useEffect(() => {
+
+
     const list = document.getElementById('list')
 
-    window.addEventListener('scroll', () => {
-      if (window.scrollY + window.innerHeight === list.clientHeight + list.offsetTop) {
+    document.addEventListener('scroll', () => {
+      debugger
+      if ((window.innerHeight + window.scrollY + 100) >= document.body.offsetHeight) {
+        debugger
         setLoadMore(true);
       }
     });
-    // }
+
   }, []);
 
   function addToCart(product) {
-    debugger
 
     let currentCart = JSON.parse(cart) || [];
 

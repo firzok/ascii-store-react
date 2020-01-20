@@ -99,8 +99,6 @@ export function Product(props) {
 
   const productInCart = currentCart.indexOf(props.id) >= 0 ? true : false;
 
-  console.log(currentCart);
-
   return (
     <Card className="product-card" variant="outlined">
       <CardContent className="product-card-face">

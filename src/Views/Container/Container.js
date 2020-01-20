@@ -39,7 +39,7 @@ export default function Container(props) {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       };
-      axios.get(`${PRODUCTS_URL}?_page=${1}&_limit=${20}&_sort=${newSort}`, { "headers": header }).then(res => {
+      axios.get(`${PRODUCTS_URL}?_page=${1}&_limit=${10}&_sort=${newSort}`, { "headers": header }).then(res => {
 
         if (res.status == 200) {
           setData(res.data);
@@ -62,7 +62,7 @@ export default function Container(props) {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       };
-      axios.get(`${PRODUCTS_URL}?_page=${page + 2}&_limit=${20}&_sort=${sort}`, { "headers": header }).then(res => {
+      axios.get(`${PRODUCTS_URL}?_page=${page + 2}&_limit=${10}&_sort=${sort}`, { "headers": header }).then(res => {
         if (res.status == 200) {
           var total = res.data.length;
           var newData = res.data;
@@ -90,7 +90,7 @@ export default function Container(props) {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         };
-        axios.get(`${PRODUCTS_URL}?_page=${page + 1}&_limit=${20}&_sort=${sort}`, { "headers": header }).then(res => {
+        axios.get(`${PRODUCTS_URL}?_page=${page + 1}&_limit=${10}&_sort=${sort}`, { "headers": header }).then(res => {
           if (res.status == 200) {
 
             var total = res.data.length;
