@@ -45,7 +45,7 @@ export function Ad(props) {
  */
 export function Product(props) {
 
-  const [cart, _] = useContext(CartContext);
+  const [cart, setCart] = useContext(CartContext);
 
   const currentCart = JSON.parse(cart) || [];
 
